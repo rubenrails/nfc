@@ -10,7 +10,7 @@ static byte_t abtFelica[5] = { 0x00, 0xff, 0xff, 0x00, 0x00 };
  */
 static VALUE connect(VALUE klass)
 {
-  nfc_device_t * dev = nfc_connect(NULL);
+  nfc_device_t * dev = nfc_open(NULL);
   if(!dev)
     rb_raise(rb_eRuntimeError, "could not find NFC device");
 
@@ -30,7 +30,7 @@ static VALUE disconnect(VALUE self)
 {
   nfc_device_t * dev;
   Data_Get_Struct(self, nfc_device_t, dev);
-  nfc_disconnect(dev);
+  nfc_close(dev);
 
   return self;
 }
